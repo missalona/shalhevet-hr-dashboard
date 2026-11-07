@@ -1,4 +1,4 @@
-/* הצבעים לפי SPEC.md, סעיף 7. לא משתמשים בצבעים אחרים. */
+/* הצבעים לפי SPEC.md, סעיף 7. מותרים רק הצבעים האלה והגוונים השקופים שלהם. */
 :root {
   --navy: #14213D;
   --orange: #E8590C;
@@ -7,11 +7,19 @@
   --white: #FFFFFF;
   --line: #DDE1E8;
   --muted: #4A5568;
+
+  --navy-tint: rgba(20, 33, 61, 0.07);
+  --orange-tint: rgba(232, 89, 12, 0.1);
+  --gold-tint: rgba(255, 194, 75, 0.25);
+  --shadow: 0 1px 2px rgba(20, 33, 61, 0.04), 0 4px 16px rgba(20, 33, 61, 0.06);
+  --radius: 16px;
 }
 
 * { box-sizing: border-box; }
 
 [hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -22,124 +30,139 @@ body {
   line-height: 1.5;
 }
 
-.wrap {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+p { margin: 0; }
 
-/* כותרת */
-.topbar {
-  background: var(--white);
-  border-bottom: 1px solid var(--line);
-}
-
-.topbar-inner {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-
-.logo { height: 56px; width: auto; }
-
-.titles { flex: 1; }
-
-h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.today {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.demo-badge {
-  background: var(--gold);
-  color: var(--navy);
-  font-weight: 600;
-  font-size: 14px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-main { padding-top: 24px; padding-bottom: 24px; }
-
-/* 4 המספרים */
-.kpis {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.kpi {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--orange);
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.kpi-icon {
-  display: grid;
-  place-items: center;
+.icon {
+  width: 22px;
+  height: 22px;
   flex: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--page);
-}
-
-.kpi-icon svg, .h-icon {
-  width: 26px;
-  height: 26px;
   fill: none;
-  stroke: var(--orange);
-  stroke-width: 2;
+  stroke: currentColor;
+  stroke-width: 1.9;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.kpi-label {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
+/* ---- פריסה כללית ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+/* ---- תפריט צד ---- */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 28px 18px;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.brand img { width: 40px; height: auto; }
+
+.brand-name { display: flex; flex-direction: column; line-height: 1.1; }
+.brand-name strong { font-size: 24px; font-weight: 800; }
+.brand-name span { font-size: 14px; font-weight: 500; color: var(--line); }
+
+.nav { display: flex; flex-direction: column; gap: 6px; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border-inline-start: 3px solid transparent;
+  color: var(--line);
   font-weight: 500;
+  text-decoration: none;
 }
 
-.kpi-value {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.2;
+.nav-link:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-inline-start-color: var(--gold);
+  color: var(--white);
+  font-weight: 600;
 }
 
-/* חלקים */
-.panel {
-  background: var(--white);
-  border: 1px solid var(--line);
+.nav-link.active .icon { color: var(--gold); }
+
+.nav-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.sidebar-foot {
+  margin-top: auto;
+  padding: 16px;
   border-radius: 12px;
-  padding: 20px 24px 24px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-foot p { margin-top: 10px; font-size: 14px; color: var(--line); }
+
+.demo-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---- תוכן ---- */
+.content { padding: 28px 32px 24px; }
+
+.page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 24px;
 }
 
-.panel-head {
+.eyebrow { color: var(--orange); font-size: 14px; font-weight: 700; }
+
+h1 { margin: 2px 0 4px; font-size: 28px; font-weight: 800; line-height: 1.25; }
+
+.subtitle { color: var(--muted); }
+
+.date-chip {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.date-chip .icon { color: var(--orange); width: 20px; height: 20px; }
+
+.section { margin-bottom: 28px; scroll-margin-top: 20px; }
+
+.section-head {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px 24px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 h2 {
@@ -151,28 +174,81 @@ h2 {
   font-weight: 700;
 }
 
-h3 {
-  margin: 24px 0 10px;
-  font-size: 17px;
-  font-weight: 600;
+h2 .icon { color: var(--orange); }
+
+.source, .hint { color: var(--muted); font-size: 14px; }
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
 }
 
-.panel-head + h3 { margin-top: 0; }
+.card + .card { margin-top: 16px; }
 
-.source, .hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.hint { margin-bottom: 12px; }
-
-/* סינון וחיפוש */
-.controls {
+.card-head {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+h3 .icon { color: var(--orange); width: 20px; height: 20px; }
+
+/* פריסה של כרטיס רחב וכרטיס צר זה לצד זה */
+.grid-wide {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.grid-wide + .card { margin-top: 16px; }
+.grid-wide .card + .card { margin-top: 0; }
+
+/* ---- כרטיסי המספרים ---- */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.kpi {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 12px;
 }
+
+.kpi-label { color: var(--muted); font-size: 14px; font-weight: 500; }
+.kpi-value { margin: 4px 0 2px; font-size: 34px; font-weight: 800; line-height: 1.1; }
+.kpi-note { color: var(--muted); font-size: 14px; }
+
+.icon-tile {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--orange-tint);
+  color: var(--orange);
+}
+
+/* ---- סינון וחיפוש ---- */
+.controls { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .controls label {
   display: flex;
@@ -184,11 +260,11 @@ h3 {
 }
 
 select, input[type="search"] {
-  min-width: 200px;
+  min-width: 190px;
   height: 40px;
   padding: 0 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--white);
   color: var(--navy);
   font: inherit;
@@ -200,12 +276,8 @@ select:focus-visible, input:focus-visible {
   outline-offset: 1px;
 }
 
-/* טבלאות */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-}
+/* ---- טבלאות ---- */
+.data-table { width: 100%; border-collapse: collapse; font-size: 16px; }
 
 .data-table th {
   text-align: right;
@@ -217,89 +289,204 @@ select:focus-visible, input:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 
-.data-table td {
-  padding: 12px;
-  border-bottom: 1px solid var(--line);
-}
+.data-table th:first-child { border-start-start-radius: 10px; border-end-start-radius: 10px; }
+.data-table th:last-child { border-start-end-radius: 10px; border-end-end-radius: 10px; }
 
+.data-table td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.data-table tbody tr:last-child td { border-bottom: none; }
 .data-table td.num { font-variant-numeric: tabular-nums; }
 
-.data-table tbody tr:last-child td { border-bottom: none; }
+/* עובד: ראשי תיבות, שם ותפקיד */
+.person { display: flex; align-items: center; gap: 12px; }
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--navy-tint);
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.person-name { display: block; font-weight: 600; }
+.person-role { display: block; color: var(--muted); font-size: 14px; }
+
+/* תגיות */
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--navy);
+}
+
+.pill.working { background: var(--navy-tint); }
+.pill.upcoming { background: var(--orange-tint); }
+.pill.soon { background: var(--gold-tint); }
+
+.date-cell { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 
 .empty {
-  margin: 12px 0 0;
-  padding: 16px;
+  margin-top: 12px;
+  padding: 18px;
   text-align: center;
   background: var(--page);
-  border-radius: 8px;
+  border-radius: 10px;
   color: var(--muted);
 }
 
-/* גרף הגיוס */
-.funnel {
-  display: grid;
-  gap: 10px;
-  max-width: 720px;
+/* ---- גרף עוגה ---- */
+.donut-wrap {
+  position: relative;
+  width: 190px;
+  margin: 4px auto 18px;
 }
+
+.donut { display: block; width: 100%; height: auto; }
+
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.donut-center strong { display: block; font-size: 32px; font-weight: 800; line-height: 1; }
+.donut-center span { color: var(--muted); font-size: 14px; }
+
+.legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+
+.legend li {
+  display: grid;
+  grid-template-columns: 12px 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend .dot { width: 12px; height: 12px; border-radius: 50%; }
+.legend .count { font-weight: 700; font-variant-numeric: tabular-nums; }
+.legend .share { color: var(--muted); font-size: 14px; min-width: 40px; text-align: left; }
+
+/* ---- גרף הגיוס בצורת משפך ---- */
+.funnel { display: grid; gap: 12px; }
 
 .funnel-row {
   display: grid;
-  grid-template-columns: 130px 1fr 56px;
+  grid-template-columns: 150px minmax(0, 1fr) 120px;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .funnel-label { font-weight: 500; }
+.funnel-label strong { display: block; font-size: 24px; font-weight: 800; line-height: 1.2; }
 
-.funnel-track {
-  height: 28px;
-  background: var(--page);
-  border-radius: 6px;
-  overflow: hidden;
+.funnel-track { display: flex; justify-content: center; }
+
+.funnel-shape {
+  height: 48px;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%);
 }
 
-.funnel-bar {
-  height: 100%;
-  border-radius: 6px;
+.funnel-shape.applications { width: 100%; background: var(--navy); }
+.funnel-shape.invited { width: 74%; background: var(--orange); }
+.funnel-shape.passed { width: 48%; background: var(--gold); }
+
+.funnel-rate { justify-self: start; }
+
+/* ---- מודעות מתוכננות ---- */
+.planned { list-style: none; margin: 0; padding: 0; }
+
+.planned li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
 }
 
-.funnel-bar.applications { background: var(--navy); }
-.funnel-bar.invited { background: var(--orange); }
-.funnel-bar.passed { background: var(--gold); }
+.planned li:last-child { border-bottom: none; padding-bottom: 0; }
+.planned li:first-child { padding-top: 0; }
 
-.funnel-value {
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
+.planned .icon-tile { width: 40px; height: 40px; border-radius: 12px; }
+.planned .icon-tile .icon { width: 20px; height: 20px; }
+.planned-info { flex: 1; min-width: 0; }
+.planned-meta { text-align: left; }
+.planned-date { display: block; color: var(--muted); font-size: 14px; margin-bottom: 2px; }
+
+.footer { padding: 4px 0 8px; color: var(--muted); font-size: 14px; }
+
+/* ---- מסכים בינוניים ---- */
+@media (max-width: 1200px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-wide { grid-template-columns: minmax(0, 1fr); }
+  .donut-wrap { margin-bottom: 18px; }
 }
 
-.footer {
-  padding-top: 8px;
-  padding-bottom: 32px;
-  color: var(--muted);
-  font-size: 14px;
+/* ---- טאבלט וטלפון: תפריט הצד הופך לפס עליון ---- */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+
+  .sidebar {
+    position: sticky;
+    z-index: 10;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .brand { flex: 1; padding: 0; }
+  .brand img { width: 32px; }
+  .brand-name strong { font-size: 20px; }
+
+  .sidebar-foot { order: 2; margin: 0; padding: 0; background: none; }
+  .sidebar-foot p { display: none; }
+
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .nav-link {
+    flex: 1;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 4px;
+    border-inline-start: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 8px 8px 0 0;
+    font-size: 14px;
+  }
+
+  .nav-link .icon { width: 18px; height: 18px; }
+  .nav-link.active { border-bottom-color: var(--gold); }
+
+  .content { padding: 20px 16px; }
+  .section { scroll-margin-top: 120px; }
 }
 
-/* מחשב קטן וטאבלט */
-@media (max-width: 960px) {
-  .kpis { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* טלפון: כל שורה בטבלה מוצגת ככרטיס */
+/* ---- טלפון: כל שורה בטבלה מוצגת ככרטיס ---- */
 @media (max-width: 700px) {
-  .wrap { padding: 0 16px; }
-
-  .topbar-inner { flex-wrap: wrap; gap: 10px 14px; }
-  .logo { height: 44px; }
-  .titles { flex-basis: 100%; order: 3; }
-  h1 { font-size: 20px; }
-  .demo-badge { margin-inline-start: auto; }
+  .page-head { flex-direction: column; align-items: flex-start; }
+  h1 { font-size: 24px; }
 
   .kpis { gap: 12px; }
-  .kpi { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; }
-  .kpi-icon { width: 40px; height: 40px; }
-  .kpi-value { font-size: 28px; }
+  .kpi { flex-direction: column-reverse; gap: 8px; padding: 16px; }
+  .kpi-value { font-size: 30px; }
+  .icon-tile { width: 40px; height: 40px; border-radius: 12px; }
 
-  .panel { padding: 16px; }
+  .card { padding: 16px; }
   .controls, .controls label, select, input[type="search"] { width: 100%; }
   select, input[type="search"] { min-width: 0; }
 
@@ -308,7 +495,7 @@ select:focus-visible, input:focus-visible {
 
   .data-table tr {
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 6px 12px;
     margin-bottom: 10px;
   }
@@ -316,8 +503,9 @@ select:focus-visible, input:focus-visible {
   .data-table td {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 12px;
-    padding: 6px 0;
+    padding: 8px 0;
     border-bottom: 1px solid var(--line);
   }
 
@@ -330,5 +518,10 @@ select:focus-visible, input:focus-visible {
     font-weight: 500;
   }
 
-  .funnel-row { grid-template-columns: 96px 1fr 44px; gap: 8px; }
+  .data-table td.person-cell::before { display: none; }
+  .date-cell { justify-content: flex-end; }
+
+  .funnel-row { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
+  .funnel-rate { grid-column: 2; justify-self: center; }
+  .funnel-label strong { font-size: 20px; }
 }
