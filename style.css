@@ -378,31 +378,33 @@ select:focus-visible, input:focus-visible {
 .legend .count { font-weight: 700; font-variant-numeric: tabular-nums; }
 .legend .share { color: var(--muted); font-size: 14px; min-width: 40px; text-align: left; }
 
-/* ---- גרף הגיוס בצורת משפך ---- */
-.funnel { display: grid; gap: 12px; }
+/* ---- גרף הגיוס: פסים ברוחב יחסי ---- */
+.funnel { display: grid; gap: 18px; }
 
-.funnel-row {
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 120px;
-  align-items: center;
-  gap: 16px;
+.funnel-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
 }
 
 .funnel-label { font-weight: 500; }
-.funnel-label strong { display: block; font-size: 24px; font-weight: 800; line-height: 1.2; }
+.funnel-value { font-size: 22px; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 
-.funnel-track { display: flex; justify-content: center; }
-
-.funnel-shape {
-  height: 48px;
-  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%);
+.funnel-track {
+  height: 18px;
+  background: var(--page);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.funnel-shape.applications { width: 100%; background: var(--navy); }
-.funnel-shape.invited { width: 74%; background: var(--orange); }
-.funnel-shape.passed { width: 48%; background: var(--gold); }
+.funnel-bar { height: 100%; border-radius: 6px; }
+.funnel-bar.applications { background: var(--navy); }
+.funnel-bar.invited { background: var(--orange); }
+.funnel-bar.passed { background: var(--gold); }
 
-.funnel-rate { justify-self: start; }
+.funnel-note { display: block; margin-top: 4px; color: var(--muted); font-size: 14px; }
 
 /* ---- מודעות מתוכננות ---- */
 .planned { list-style: none; margin: 0; padding: 0; }
@@ -525,7 +527,5 @@ select:focus-visible, input:focus-visible {
   .data-table td.person-cell::before { display: none; }
   .date-cell { justify-content: flex-end; }
 
-  .funnel-row { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
-  .funnel-rate { grid-column: 2; justify-self: center; }
-  .funnel-label strong { font-size: 20px; }
+  .funnel-value { font-size: 20px; }
 }

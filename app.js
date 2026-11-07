@@ -252,27 +252,28 @@ function renderFunnel() {
   const invited = sum(publishedAds, "invited");
   const passed = sum(publishedAds, "passed");
 
+  // רוחב כל פס יחסי למספר שלו מתוך הפניות (SPEC.md, סעיף 7)
   const steps = [
-    { label: "פניות", value: applications, className: "applications", rate: null },
-    { label: "הוזמנו לראיון", value: invited, className: "invited", rate: `${percent(invited, applications)}% מהפניות` },
-    { label: "עברו את הראיון", value: passed, className: "passed", rate: `${percent(passed, invited)}% מהמוזמנים` }
+    { label: "פניות", value: applications, className: "applications", note: "100% מהפניות" },
+    { label: "הוזמנו לראיון", value: invited, className: "invited", note: `${percent(invited, applications)}% מהפניות` },
+    { label: "עברו את הראיון", value: passed, className: "passed",
+      note: `${percent(passed, applications)}% מהפניות · ${percent(passed, invited)}% מהמוזמנים` }
   ];
 
   document.getElementById("funnel").replaceChildren(...steps.map((step) => {
     const row = el("div", "funnel-row");
+    row.setAttribute("role", "img");
+    row.setAttribute("aria-label", `${step.label}: ${step.value}, ${step.note}`);
 
-    const label = el("div", "funnel-label");
-    label.append(el("strong", "funnel-value", step.value), el("span", "", step.label));
+    const top = el("div", "funnel-top");
+    top.append(el("span", "funnel-label", step.label), el("strong", "funnel-value", step.value));
 
     const track = el("div", "funnel-track");
-    const shape = el("div", `funnel-shape ${step.className}`);
-    shape.setAttribute("aria-hidden", "true");
-    track.appendChild(shape);
+    const bar = el("div", `funnel-bar ${step.className}`);
+    bar.style.width = `${(step.value / applications) * 100}%`;
+    track.appendChild(bar);
 
-    const rate = el("div", "funnel-rate");
-    if (step.rate) rate.appendChild(pill(step.rate, "upcoming"));
-
-    row.append(label, track, rate);
+    row.append(top, track, el("span", "funnel-note", step.note));
     return row;
   }));
 }
