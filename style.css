@@ -216,12 +216,16 @@ h3 .icon { color: var(--orange); width: 20px; height: 20px; }
 }
 
 .grid-wide + .card { margin-top: 16px; }
-.grid-wide .card + .card { margin-top: 0; }
+
+/* כרטיסים שמסודרים ברשת עומדים זה לצד זה, ולכן לא מקבלים רווח מלמעלה */
+.grid-wide .card + .card,
+.kpis .card + .card { margin-top: 0; }
 
 /* ---- כרטיסי המספרים ---- */
 .kpis {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr; /* כל הכרטיסים באותו גובה, גם כשהם בשתי שורות */
   gap: 16px;
 }
 
