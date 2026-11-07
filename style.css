@@ -1,0 +1,334 @@
+/* הצבעים לפי SPEC.md, סעיף 7. לא משתמשים בצבעים אחרים. */
+:root {
+  --navy: #14213D;
+  --orange: #E8590C;
+  --gold: #FFC24B;
+  --page: #F7F8FA;
+  --white: #FFFFFF;
+  --line: #DDE1E8;
+  --muted: #4A5568;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--navy);
+  font-family: "Heebo", "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* כותרת */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.logo { height: 56px; width: auto; }
+
+.titles { flex: 1; }
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.today {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.demo-badge {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+main { padding-top: 24px; padding-bottom: 24px; }
+
+/* 4 המספרים */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kpi {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--orange);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.kpi-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--page);
+}
+
+.kpi-icon svg, .h-icon {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kpi-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.kpi-value {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* חלקים */
+.panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 24px 24px;
+  margin-bottom: 24px;
+}
+
+.panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+h3 {
+  margin: 24px 0 10px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.panel-head + h3 { margin-top: 0; }
+
+.source, .hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.hint { margin-bottom: 12px; }
+
+/* סינון וחיפוש */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+select, input[type="search"] {
+  min-width: 200px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-size: 16px;
+}
+
+select:focus-visible, input:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+}
+
+/* טבלאות */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.data-table th {
+  text-align: right;
+  padding: 10px 12px;
+  background: var(--page);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table td.num { font-variant-numeric: tabular-nums; }
+
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+.empty {
+  margin: 12px 0 0;
+  padding: 16px;
+  text-align: center;
+  background: var(--page);
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+/* גרף הגיוס */
+.funnel {
+  display: grid;
+  gap: 10px;
+  max-width: 720px;
+}
+
+.funnel-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 56px;
+  align-items: center;
+  gap: 12px;
+}
+
+.funnel-label { font-weight: 500; }
+
+.funnel-track {
+  height: 28px;
+  background: var(--page);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.funnel-bar {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.funnel-bar.applications { background: var(--navy); }
+.funnel-bar.invited { background: var(--orange); }
+.funnel-bar.passed { background: var(--gold); }
+
+.funnel-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.footer {
+  padding-top: 8px;
+  padding-bottom: 32px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* מחשב קטן וטאבלט */
+@media (max-width: 960px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* טלפון: כל שורה בטבלה מוצגת ככרטיס */
+@media (max-width: 700px) {
+  .wrap { padding: 0 16px; }
+
+  .topbar-inner { flex-wrap: wrap; gap: 10px 14px; }
+  .logo { height: 44px; }
+  .titles { flex-basis: 100%; order: 3; }
+  h1 { font-size: 20px; }
+  .demo-badge { margin-inline-start: auto; }
+
+  .kpis { gap: 12px; }
+  .kpi { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; }
+  .kpi-icon { width: 40px; height: 40px; }
+  .kpi-value { font-size: 28px; }
+
+  .panel { padding: 16px; }
+  .controls, .controls label, select, input[type="search"] { width: 100%; }
+  select, input[type="search"] { min-width: 0; }
+
+  .data-table thead { display: none; }
+  .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
+
+  .data-table tr {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+  }
+
+  .data-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .data-table tbody tr td:last-child { border-bottom: none; }
+
+  .data-table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .funnel-row { grid-template-columns: 96px 1fr 44px; gap: 8px; }
+}

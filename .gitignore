@@ -2,6 +2,9 @@
 .env
 *.key
 
+# local preview settings
+.claude/
+
 # OS junk
 .DS_Store
 Thumbs.db

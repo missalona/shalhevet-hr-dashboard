@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>דאשבורד משאבי אנוש | שלהבת ביטוח</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <img class="logo" src="assets/logo.svg" alt="שלהבת ביטוח">
+      <div class="titles">
+        <h1>דאשבורד משאבי אנוש</h1>
+        <p class="today">היום: <span id="today"></span></p>
+      </div>
+      <span class="demo-badge">נתוני הדגמה</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 4 המספרים -->
+    <section class="kpis" aria-label="סיכום">
+      <article class="kpi">
+        <span class="kpi-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M19 8v6M16 11h6"/></svg>
+        </span>
+        <div>
+          <p class="kpi-label">עובדים בקליטה</p>
+          <p class="kpi-value" id="kpi-onboarding"></p>
+        </div>
+      </article>
+      <article class="kpi">
+        <span class="kpi-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 10v4h3l6 4V6L6 10H3z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg>
+        </span>
+        <div>
+          <p class="kpi-label">מודעות שפורסמו</p>
+          <p class="kpi-value" id="kpi-published"></p>
+        </div>
+      </article>
+      <article class="kpi">
+        <span class="kpi-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M9 15l2 2 4-4"/></svg>
+        </span>
+        <div>
+          <p class="kpi-label">מועמדים שהוזמנו לראיון</p>
+          <p class="kpi-value" id="kpi-invited"></p>
+        </div>
+      </article>
+      <article class="kpi">
+        <span class="kpi-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9"/></svg>
+        </span>
+        <div>
+          <p class="kpi-label">פרישות ב-6 החודשים הקרובים</p>
+          <p class="kpi-value" id="kpi-retiring"></p>
+        </div>
+      </article>
+    </section>
+
+    <!-- קליטת עובדים -->
+    <section class="panel" id="onboarding" aria-labelledby="onboarding-title">
+      <div class="panel-head">
+        <h2 id="onboarding-title">
+          <svg class="h-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M19 8v6M16 11h6"/></svg>
+          קליטת עובדים
+        </h2>
+        <div class="controls">
+          <label>
+            <span>מחלקה</span>
+            <select id="onboarding-department"></select>
+          </label>
+          <label>
+            <span>חיפוש לפי שם</span>
+            <input id="onboarding-search" type="search" placeholder="לדוגמה: נועה" autocomplete="off">
+          </label>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>שם</th><th>תפקיד</th><th>מחלקה</th><th>תאריך קליטה</th><th>מנהל ישיר</th></tr>
+        </thead>
+        <tbody id="onboarding-rows"></tbody>
+      </table>
+      <p class="empty" id="onboarding-empty" hidden></p>
+    </section>
+
+    <!-- מודעות דרושים -->
+    <section class="panel" id="recruitment" aria-labelledby="recruitment-title">
+      <div class="panel-head">
+        <h2 id="recruitment-title">
+          <svg class="h-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h3l6 4V6L6 10H3z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg>
+          מודעות דרושים
+        </h2>
+        <p class="source">אתר הפרסום: <bdi>AllJobs</bdi></p>
+      </div>
+
+      <h3>מודעות שפורסמו</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>תפקיד</th><th>מחלקה</th><th>תאריך פרסום</th><th>פניות</th><th>הוזמנו לראיון</th><th>עברו את הראיון</th></tr>
+        </thead>
+        <tbody id="published-rows"></tbody>
+      </table>
+
+      <h3>מודעות מתוכננות</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>תפקיד</th><th>מחלקה</th><th>תאריך פרסום מתוכנן</th></tr>
+        </thead>
+        <tbody id="planned-rows"></tbody>
+      </table>
+
+      <h3>תהליך הגיוס</h3>
+      <p class="hint">סיכום של כל המודעות שפורסמו</p>
+      <div class="funnel" id="funnel"></div>
+    </section>
+
+    <!-- יציאה לפנסיה -->
+    <section class="panel" id="retirement" aria-labelledby="retirement-title">
+      <div class="panel-head">
+        <h2 id="retirement-title">
+          <svg class="h-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9"/></svg>
+          יציאה לפנסיה
+        </h2>
+        <div class="controls">
+          <label>
+            <span>מחלקה</span>
+            <select id="retirement-department"></select>
+          </label>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>שם</th><th>תפקיד</th><th>מחלקה</th><th>תאריך פרישה</th><th>שנות ותק</th></tr>
+        </thead>
+        <tbody id="retirement-rows"></tbody>
+      </table>
+      <p class="empty" id="retirement-empty" hidden></p>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    שלהבת ביטוח היא חברה מומצאת. כל הנתונים בדף הם נתוני הדגמה.
+  </footer>
+</body>
+</html>
